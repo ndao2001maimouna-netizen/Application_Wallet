@@ -105,7 +105,6 @@ function depot(array &$wallets, array &$transactions){
 
 
 
-
 function retrait(array &$wallets, array &$transactions){
 
     $telephone = readline("Entrez le numéro : ");
@@ -117,9 +116,9 @@ function retrait(array &$wallets, array &$transactions){
         return;
     }
 
-    $montant = (int)readline("Montant : ");
+    $montant = (int) readline("Montant : ");
 
-    if(!montantValide($montant)){
+    if(montantValide($montant) == 0){
         echo "Montant invalide\n";
         return;
     }
