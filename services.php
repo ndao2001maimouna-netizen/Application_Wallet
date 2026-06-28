@@ -13,67 +13,54 @@ function sassieWallet(array $wallets)
         'solde' => 0
     ];
 
-    // Saisie du nom
     $wallet['client'] = readline("Nom du client : ");
 
-    // Vérifier que le nom n'est pas vide
     if (nomValide($wallet['client']) == 0) {
         echo "Le nom est obligatoire\n";
         return null;
     }
 
-    // Saisie du téléphone
     $wallet['telephone'] = readline("Entrez le numéro : ");
 
-    // Vérifier que le téléphone n'est pas vide
     if (telephoneValide($wallet['telephone']) == 0) {
         echo "Téléphone obligatoire\n";
         return null;
     }
 
-    // Vérifier que le téléphone contient uniquement des chiffres
     if (telephoneNumerique($wallet['telephone']) == 0) {
         echo "Le téléphone doit contenir uniquement des chiffres\n";
         return null;
     }
 
-    // Vérifier que le téléphone contient exactement 9 chiffres
     if (longueurTelephone($wallet['telephone']) == 0) {
         echo "Le téléphone doit contenir exactement 9 chiffres\n";
         return null;
     }
 
-    // Vérifier le préfixe
     if (prefixeValide($wallet['telephone']) == 0) {
         echo "Préfixe invalide\n";
         return null;
     }
 
-    // Vérifier que le numéro n'existe pas déjà
     if (telephoneExiste($wallet['telephone'], $wallets) == 1) {
         echo "Ce numéro existe déjà\n";
         return null;
     }
 
-    // Saisie du code secret
     $wallet['code'] = readline("Entrez le code secret : ");
 
-    // Vérifier que le code n'est pas vide
     if (codeValide($wallet['code']) == 0) {
         echo "Code obligatoire\n";
         return null;
     }
 
-    // Vérifier que le code n'existe pas déjà
     if (codeExiste($wallet['code'], $wallets) == 1) {
         echo "Ce code existe déjà\n";
         return null;
     }
 
-    // Saisie du solde initial
     $wallet['solde'] = (int) readline("Solde initial : ");
 
-    // Vérifier que le solde est valide
     if (soldeValide($wallet['solde']) == 0) {
         echo "Le solde doit être positif ou nul\n";
         return null;

@@ -25,8 +25,13 @@ function application(){
 
             case 1:
                 echo "\nCréation Wallet\n";
-                $nouveauWallet = sassieWallet();
-                creationWallet($nouveauWallet, $wallets);
+
+                $nouveauWallet = sassieWallet($wallets);
+
+                if ($nouveauWallet != null) {
+                    creationWallet($nouveauWallet, $wallets);
+                }
+
             break;
 
             case 2:
@@ -56,10 +61,4 @@ function application(){
     }while($choix != 0);
 }
 
-
-$nouveauWallet = sassieWallet($wallets);
-
-if ($nouveauWallet != null) {
-    creationWallet($nouveauWallet, $wallets);
-}
 ?>
