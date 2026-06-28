@@ -97,6 +97,7 @@ function depot(array &$wallets, array &$transactions){
     $transactions[] = [
         'type' => 'Depot',
         'montant' => $montant,
+         'frais' => 0,
         'telephone' => $telephone
     ];
 
