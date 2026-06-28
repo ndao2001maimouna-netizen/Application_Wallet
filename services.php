@@ -13,11 +13,7 @@ function sassieWallet(){
     ];
 //client
     $wallet['client'] = readline("Nom du client : ");
-   
-if (nomValide($nom) == 0) {
-    echo "Le nom est obligatoire\n";
-    return;
-}
+
 //telephone
     $wallet['telephone'] = readline("Entrez le numéro : ");
 
