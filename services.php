@@ -17,11 +17,6 @@ function sassieWallet(){
 //telephone
     $wallet['telephone'] = readline("Entrez le numéro : ");
 
-
-if (telephoneValide($telephone) == 0) {
-    echo "Téléphone obligatoire\n";
-    return;
-}
 if (telephoneNumerique($telephone) == 0) {
     echo "Le téléphone doit contenir uniquement des chiffres\n";
     return;
