@@ -20,6 +20,44 @@ function sassieWallet(){
     return $wallet;
 }
 
+//Controle de saissie du creation
+$nom = readline("Nom : ");
+
+if (nomValide($nom) == 0) {
+    echo "Le nom est obligatoire\n";
+    return;
+}
+
+$telephone = readline("Téléphone : ");
+
+if (telephoneValide($telephone) == 0) {
+    echo "Téléphone obligatoire\n";
+    return;
+}
+
+if (telephoneNumerique($telephone) == 0) {
+    echo "Le téléphone doit contenir uniquement des chiffres\n";
+    return;
+}
+
+if (longueurTelephone($telephone) == 0) {
+    echo "Le téléphone doit contenir 9 chiffres\n";
+    return;
+}
+
+if (prefixeValide($telephone) == 0) {
+    echo "Préfixe invalide\n";
+    return;
+}
+
+if (telephoneExiste($telephone, $wallets) == 1) {
+    echo "Ce numéro existe déjà\n";
+    return;
+}
+
+
+
+
 function creationWallet(array $creerWallet, array &$wallets){
     ajouterWallet($creerWallet, $wallets);
 }
@@ -85,5 +123,26 @@ function retrait(array &$wallets, array &$transactions){
     ];
 
     echo "Retrait effectué avec succès\n";
+}
+
+
+
+function calculerFrais($montant){
+
+    if($montant <= 10000){
+        return 200;
+    }
+
+    if($montant <= 100000){
+        return 500;
+    }
+
+    $frais = $montant * 0.01;
+
+    if($frais > 5000){
+        $frais = 5000;
+    }
+
+    return $frais;
 }
 ?>
