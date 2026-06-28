@@ -17,62 +17,14 @@ function sassieWallet(){
 //telephone
     $wallet['telephone'] = readline("Entrez le numéro : ");
 
-if (telephoneNumerique($telephone) == 0) {
-    echo "Le téléphone doit contenir uniquement des chiffres\n";
-    return;
-}
-
-if (longueurTelephone($telephone) == 0) {
-    echo "Le téléphone doit contenir 9 chiffres\n";
-    return;
-}
-
-if (prefixeValide($telephone) == 0) {
-    echo "Préfixe invalide\n";
-    return;
-}
-
-if (telephoneExiste($telephone, $wallets) == 1) {
-    echo "Ce numéro existe déjà\n";
-    return;
-}
-
-if (!walletExiste($telephone, $wallets)) {
-    echo "Numéro introuvable\n";
-    return;
-}
-
 //code
 
     $wallet['code'] = readline("Entrez le code secret : ");
 
-if (!codeValide($code)) {
-    echo "Code obligatoire\n";
-    return;
-}
 
-if (codeExiste($code, $wallets)) {
-    echo "Ce code existe déjà\n";
-    return;
-}
 //solde
     $wallet['solde'] = (int)readline("Solde initial : ");
     
-
-if (!montantNumerique($montant)) {
-    echo "Montant invalide\n";
-    return;
-}
-
-if (!montantValide($montant)) {
-    echo "Le montant doit être supérieur à 0\n";
-    return;
-}
-
-if (!soldeSuffisant($solde, $montant, $frais)) {
-    echo "Solde insuffisant\n";
-    return;
-}
 
     return $wallet;
 }
