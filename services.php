@@ -20,7 +20,6 @@ function sassieWallet(){
     return $wallet;
 }
 
-/
 
 
 
