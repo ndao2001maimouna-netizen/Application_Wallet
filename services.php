@@ -23,11 +23,58 @@ function sassieWallet(){
 
 
 
-
-
 function creationWallet(array $creerWallet, array &$wallets){
     ajouterWallet($creerWallet, $wallets);
 }
+
+
+//Controle de saissie du creation
+$nom = readline("Nom : ");
+
+if (nomValide($nom) == 0) {
+    echo "Le nom est obligatoire\n";
+    return;
+}
+
+$telephone = readline("Téléphone : ");
+
+if (telephoneValide($telephone) == 0) {
+    echo "Téléphone obligatoire\n";
+    return;
+}
+
+if (telephoneNumerique($telephone) == 0) {
+    echo "Le téléphone doit contenir uniquement des chiffres\n";
+    return;
+}
+
+if (longueurTelephone($telephone) == 0) {
+    echo "Le téléphone doit contenir 9 chiffres\n";
+    return;
+}
+
+if (prefixeValide($telephone) == 0) {
+    echo "Préfixe invalide\n";
+    return;
+}
+
+if (telephoneExiste($telephone, $wallets) == 1) {
+    echo "Ce numéro existe déjà\n";
+    return;
+}
+
+$code = readline("Code : ");
+
+if (!codeValide($code)) {
+    echo "Code obligatoire\n";
+    return;
+}
+
+if (codeExiste($code, $wallets)) {
+    echo "Ce code existe déjà\n";
+    return;
+}
+
 
 function depot(array &$wallets, array &$transactions){
 
@@ -57,6 +104,28 @@ function depot(array &$wallets, array &$transactions){
 
     echo "Dépôt effectué avec succès\n";
 }
+
+
+$telephone = readline("Téléphone : ");
+
+if (!walletExiste($telephone, $wallets)) {
+    echo "Numéro introuvable\n";
+    return;
+}
+
+$montant = readline("Montant : ");
+
+if (!montantNumerique($montant)) {
+    echo "Montant invalide\n";
+    return;
+}
+
+if (!montantValide($montant)) {
+    echo "Le montant doit être supérieur à 0\n";
+    return;
+}
+
+
 
 function retrait(array &$wallets, array &$transactions){
 
@@ -90,6 +159,29 @@ function retrait(array &$wallets, array &$transactions){
     ];
 
     echo "Retrait effectué avec succès\n";
+}
+$telephone = readline("Téléphone : ");
+
+if (!walletExiste($telephone, $wallets)) {
+    echo "Numéro introuvable\n";
+    return;
+}
+
+$montant = readline("Montant : ");
+
+if (!montantNumerique($montant)) {
+    echo "Montant invalide\n";
+    return;
+}
+
+if (!montantValide($montant)) {
+    echo "Le montant doit être supérieur à 0\n";
+    return;
+}
+
+if (!soldeSuffisant($solde, $montant, $frais)) {
+    echo "Solde insuffisant\n";
+    return;
 }
 
 
