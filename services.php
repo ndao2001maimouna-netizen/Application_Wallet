@@ -20,31 +20,8 @@ function sassieWallet(){
     return $wallet;
 }
 
-function creationWallet(array $wallet, array &$wallets){
-
-    if(!nomValide($wallet['client'])){
-        echo "Nom obligatoire\n";
-        return;
-    }
-
-    if(telephoneExiste($wallet['telephone'], $wallets)){
-        echo "Ce numéro existe déjà\n";
-        return;
-    }
-
-    if(codeExiste($wallet['code'], $wallets)){
-        echo "Ce code existe déjà\n";
-        return;
-    }
-
-    if(!soldeValide($wallet['solde'])){
-        echo "Solde invalide\n";
-        return;
-    }
-
-    ajouterWallet($wallet, $wallets);
-
-    echo "Wallet créé avec succès\n";
+function creationWallet(array $creerWallet, array &$wallets){
+    ajouterWallet($creerWallet, $wallets);
 }
 
 function depot(array &$wallets, array &$transactions){
@@ -87,55 +64,26 @@ function retrait(array &$wallets, array &$transactions){
         return;
     }
 
-    $montant = (int)readline("Montant à retirer : ");
+    $montant = (int)readline("Montant : ");
 
     if(!montantValide($montant)){
         echo "Montant invalide\n";
         return;
     }
 
-    $frais = calculerFrais($montant);
-
-    $montantTotal = $montant + $frais;
-
-    if($wallets[$index]['solde'] < $montantTotal){
+    if($montant > $wallets[$index]['solde']){
         echo "Solde insuffisant\n";
         return;
     }
 
-    $wallets[$index]['solde'] -= $montantTotal;
+    $wallets[$index]['solde'] -= $montant;
 
     $transactions[] = [
         'type' => 'Retrait',
-        'telephone' => $telephone,
         'montant' => $montant,
-        'frais' => $frais
+        'telephone' => $telephone
     ];
 
     echo "Retrait effectué avec succès\n";
-    echo "Frais : ".$frais."\n";
-    echo "Nouveau solde : ".$wallets[$index]['solde']."\n";
 }
-
-
-
-function calculerFrais($montant){
-
-    if($montant <= 10000){
-        return 200;
-    }
-
-    if($montant <= 100000){
-        return 500;
-    }
-
-    $frais = $montant * 0.01;
-
-    if($frais > 5000){
-        $frais = 5000;
-    }
-
-    return $frais;
-}
-
 ?>
