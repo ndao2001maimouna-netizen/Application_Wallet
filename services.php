@@ -23,17 +23,17 @@ function sassieWallet(array $wallets)
     $wallet['telephone'] = readline("Entrez le numéro : ");
 
     if (telephoneValide($wallet['telephone']) == 0) {
-        echo "Téléphone obligatoire\n";
+        echo "Telephone obligatoire\n";
         return null;
     }
 
     if (telephoneNumerique($wallet['telephone']) == 0) {
-        echo "Le téléphone doit contenir uniquement des chiffres\n";
+        echo "telephone doit contenir uniquement des chiffres\n";
         return null;
     }
 
     if (longueurTelephone($wallet['telephone']) == 0) {
-        echo "Le téléphone doit contenir exactement 9 chiffres\n";
+        echo " telephone doit contenir exactement 9 chiffres\n";
         return null;
     }
 
@@ -43,7 +43,7 @@ function sassieWallet(array $wallets)
     }
 
     if (telephoneExiste($wallet['telephone'], $wallets) == 1) {
-        echo "Ce numéro existe déjà\n";
+        echo "numéro existe deja\n";
         return null;
     }
 
@@ -55,14 +55,14 @@ function sassieWallet(array $wallets)
     }
 
     if (codeExiste($wallet['code'], $wallets) == 1) {
-        echo "Ce code existe déjà\n";
+        echo "Ce code existe deja\n";
         return null;
     }
 
     $wallet['solde'] = (int) readline("Solde initial : ");
 
     if (soldeValide($wallet['solde']) == 0) {
-        echo "Le solde doit être positif ou nul\n";
+        echo " solde doit être positif ou nul\n";
         return null;
     }
 
