@@ -124,12 +124,17 @@ function retrait(array &$wallets, array &$transactions){
         return;
     }
 
-    if($montant > $wallets[$index]['solde']){
+    $frais = calculerFrais($montant);
+
+    if (($montant + $frais) > $wallets[$index]['solde']) {
         echo "Solde insuffisant\n";
         return;
     }
 
-    $wallets[$index]['solde'] -= $montant;
+    $wallets[$index]['solde'] -= ($montant + $frais);
+
+    echo "Frais appliqués : " . $frais . "\n";
+    echo "Nouveau solde : " . $wallets[$index]['solde'] . "\n";
 
     $transactions[] = [
         'type' => 'Retrait',
