@@ -55,4 +55,11 @@ function application(){
 
     }while($choix != 0);
 }
+
+
+$nouveauWallet = sassieWallet($wallets);
+
+if ($nouveauWallet != null) {
+    creationWallet($nouveauWallet, $wallets);
+}
 ?>
