@@ -11,38 +11,21 @@ function sassieWallet(){
         'code' => '',
         'solde' => 0
     ];
-
+//client
     $wallet['client'] = readline("Nom du client : ");
-    $wallet['telephone'] = readline("Entrez le numéro : ");
-    $wallet['code'] = readline("Entrez le code secret : ");
-    $wallet['solde'] = (int)readline("Solde initial : ");
-
-    return $wallet;
-}
-
-
-
-
-function creationWallet(array $creerWallet, array &$wallets){
-    ajouterWallet($creerWallet, $wallets);
-}
-
-
-//Controle de saissie du creation
-$nom = readline("Nom : ");
-
+   
 if (nomValide($nom) == 0) {
     echo "Le nom est obligatoire\n";
     return;
 }
+//telephone
+    $wallet['telephone'] = readline("Entrez le numéro : ");
 
-$telephone = readline("Téléphone : ");
 
 if (telephoneValide($telephone) == 0) {
     echo "Téléphone obligatoire\n";
     return;
 }
-
 if (telephoneNumerique($telephone) == 0) {
     echo "Le téléphone doit contenir uniquement des chiffres\n";
     return;
@@ -63,7 +46,14 @@ if (telephoneExiste($telephone, $wallets) == 1) {
     return;
 }
 
-$code = readline("Code : ");
+if (!walletExiste($telephone, $wallets)) {
+    echo "Numéro introuvable\n";
+    return;
+}
+
+//code
+
+    $wallet['code'] = readline("Entrez le code secret : ");
 
 if (!codeValide($code)) {
     echo "Code obligatoire\n";
@@ -74,7 +64,33 @@ if (codeExiste($code, $wallets)) {
     echo "Ce code existe déjà\n";
     return;
 }
+//solde
+    $wallet['solde'] = (int)readline("Solde initial : ");
+    
 
+if (!montantNumerique($montant)) {
+    echo "Montant invalide\n";
+    return;
+}
+
+if (!montantValide($montant)) {
+    echo "Le montant doit être supérieur à 0\n";
+    return;
+}
+
+if (!soldeSuffisant($solde, $montant, $frais)) {
+    echo "Solde insuffisant\n";
+    return;
+}
+
+    return $wallet;
+}
+
+
+
+function creationWallet(array $creerWallet, array &$wallets){
+    ajouterWallet($creerWallet, $wallets);
+}
 
 function depot(array &$wallets, array &$transactions){
 
@@ -105,25 +121,6 @@ function depot(array &$wallets, array &$transactions){
     echo "Dépôt effectué avec succès\n";
 }
 
-
-$telephone = readline("Téléphone : ");
-
-if (!walletExiste($telephone, $wallets)) {
-    echo "Numéro introuvable\n";
-    return;
-}
-
-$montant = readline("Montant : ");
-
-if (!montantNumerique($montant)) {
-    echo "Montant invalide\n";
-    return;
-}
-
-if (!montantValide($montant)) {
-    echo "Le montant doit être supérieur à 0\n";
-    return;
-}
 
 
 
@@ -160,30 +157,6 @@ function retrait(array &$wallets, array &$transactions){
 
     echo "Retrait effectué avec succès\n";
 }
-$telephone = readline("Téléphone : ");
-
-if (!walletExiste($telephone, $wallets)) {
-    echo "Numéro introuvable\n";
-    return;
-}
-
-$montant = readline("Montant : ");
-
-if (!montantNumerique($montant)) {
-    echo "Montant invalide\n";
-    return;
-}
-
-if (!montantValide($montant)) {
-    echo "Le montant doit être supérieur à 0\n";
-    return;
-}
-
-if (!soldeSuffisant($solde, $montant, $frais)) {
-    echo "Solde insuffisant\n";
-    return;
-}
-
 
 
 function calculerFrais($montant){
