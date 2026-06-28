@@ -138,6 +138,7 @@ function retrait(array &$wallets, array &$transactions){
     $transactions[] = [
         'type' => 'Retrait',
         'montant' => $montant,
+         'frais' => $frais,
         'telephone' => $telephone
     ];
 

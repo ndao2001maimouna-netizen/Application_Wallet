@@ -30,6 +30,7 @@ function transaction(array $transactions){
 
         echo "Transaction ".($index+1)."\n";
         echo "Type : ".$value['type']."\n";
+        echo "Frais : " . $value['frais'] . "\n";
         echo "Téléphone : ".$value['telephone']."\n";
         echo "Montant : ".$value['montant']."\n";
         echo "--------------------------\n";
