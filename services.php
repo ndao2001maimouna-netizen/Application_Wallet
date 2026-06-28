@@ -3,8 +3,7 @@
 require_once 'repository.php';
 require_once 'validator.php';
 
-function sassieWallet(array $wallets)
-{
+function sassieWallet(){
 
     $wallet = [
         'client' => "",
@@ -12,65 +11,16 @@ function sassieWallet(array $wallets)
         'code' => '',
         'solde' => 0
     ];
-
-
-    $wallet['client'] = readline("Nom du client : ");
-
-    if (nomValide($wallet['client']) == 0) {
-        echo "Le nom est obligatoire\n";
-        return null;
-    }
-
-    $wallet['telephone'] = readline("Entrez le numéro : ");
-
-    if (telephoneValide($wallet['telephone']) == 0) {
-        echo "Téléphone obligatoire\n";
-        return null;
-    }
-
-    if (telephoneNumerique($wallet['telephone']) == 0) {
-        echo "Le téléphone doit contenir uniquement des chiffres\n";
-        return null;
-    }
-
-    if (longueurTelephone($wallet['telephone']) == 0) {
-        echo "Le téléphone doit contenir exactement 9 chiffres\n";
-        return null;
-    }
-
-    if (prefixeValide($wallet['telephone']) == 0) {
-        echo "Préfixe invalide\n";
-        return null;
-    }
-
-    if (telephoneExiste($wallet['telephone'], $wallets) == 1) {
-        echo "Ce numéro existe déjà\n";
-        return null;
-    }
-
-    $wallet['code'] = readline("Entrez le code secret : ");
-
-    if (codeValide($wallet['code']) == 0) {
-        echo "Code obligatoire\n";
-        return null;
-    }
-
-    if (codeExiste($wallet['code'], $wallets) == 1) {
-        echo "Ce code existe déjà\n";
-        return null;
-    }
-
     
-    $wallet['solde'] = (int) readline("Solde initial : ");
-
-    // Vérifier que le solde est valide
-    if (soldeValide($wallet['solde']) == 0) {
-        echo "Le solde doit être positif ou nul\n";
-        return null;
-    }
+    $wallet['client'] = readline("Nom du client : ");
+    $wallet['telephone'] = readline("Entrez le numéro : ");
+    $wallet['code'] = readline("Entrez le code secret : ");
+    $wallet['solde'] = (int)readline("Solde initial : ");
+    
 
     return $wallet;
 }
+
 
 
 function creationWallet(array $creerWallet, array &$wallets){
