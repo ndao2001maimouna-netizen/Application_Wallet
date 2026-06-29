@@ -2,11 +2,18 @@
 
 function nomValide($nom)
 {
-    if ($nom != "") {
-        return 1;
+    if ($nom == "") {
+        return 0;
     }
 
-    return 0;
+    for ($i = 0; $i < strlen($nom); $i++) {
+
+        if ($nom[$i] >= '0' && $nom[$i] <= '9') {
+            return 0;
+        }
+    }
+
+    return 1;
 }
 
 function telephoneValide($telephone)
